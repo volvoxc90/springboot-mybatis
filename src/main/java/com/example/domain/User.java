@@ -13,15 +13,16 @@ public class User implements Serializable {
 
     private Integer id;
 
-    private String userName;
+    private String username;
 
     private Integer age;
 
+    private  String ctm;
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", age=" + age +
                 '}';
     }

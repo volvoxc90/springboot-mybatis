@@ -7,10 +7,14 @@ package com.example.mapper;
 
 import com.example.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
 
-    public User getUserByName(String name);
+    public List<User> getUserByName(@Param("username") String username);
 
+    public List getUsers();
 }

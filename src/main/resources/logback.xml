@@ -17,7 +17,7 @@
     </appender>
 
     <!--  mapper 文件的包路径-->
-    <logger name="cn.example" level="debug" />
+    <logger name="com.example" level="debug" />
 
     <!--log4jdbc -->
     <logger name="jdbc.sqltiming" level="debug"/>
