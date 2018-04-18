@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @create 2018-03-16 11:44
  **/
 @Data
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
     private Integer id;
 
@@ -18,12 +18,8 @@ public class User implements Serializable {
     private Integer age;
 
     private  String ctm;
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", age=" + age +
-                '}';
-    }
+
+    private String contactAddress;
+
+
 }

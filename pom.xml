@@ -6,7 +6,12 @@
     <groupId>com.example</groupId>
     <artifactId>springboot-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>mybatis-3-learn</module>
+        <module>mybatis-3-learn2</module>
+        <module>../mybatis-3-learning</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>springboot-mybatis</name>
     <description>Demo project for Spring Boot</description>
@@ -82,9 +87,27 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.2.1</version>
+            <version>5.1.3</version>
         </dependency>
 
+        <!--mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!--pagehelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!-- 数据库连接池 -->
         <dependency>

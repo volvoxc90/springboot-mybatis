@@ -1,6 +1,8 @@
 package com.example.service;
 
 import com.example.domain.User;
+import com.example.utils.MyMapper;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -12,4 +14,8 @@ public interface UserService {
     public List<User> getUserByName(String name);
 
     public List getUsers();
+
+    public List<User> getAll(User user);
+
+    public List<User> getUserByAge(Integer age);
 }

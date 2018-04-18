@@ -6,15 +6,22 @@ package com.example.mapper;
  **/
 
 import com.example.domain.User;
+import com.example.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends MyMapper {
 
     public List<User> getUserByName(@Param("username") String username);
 
     public List getUsers();
+
+    public List<User> getAll(@Param("user") User user);
+
+    public List<User> getUserByAge(@Param("age") Integer age);
+
+
 }
