@@ -6,11 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>springboot-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>mybatis-3-learn</module>
-        <module>mybatis-3-learn2</module>
-        <module>../mybatis-3-learning</module>
-    </modules>
+
     <packaging>pom</packaging>
 
     <name>springboot-mybatis</name>
