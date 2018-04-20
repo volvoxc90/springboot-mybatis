@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!-- 引用db.properties配置文件 -->
+    <properties resource="db.properties"/>
 
     <settings>
         <!-- 使全局的映射器启用或禁用缓存。 -->
@@ -49,6 +50,10 @@
 
         <!--指定哪个对象的方法触发一次延迟加载。-->
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+
+        <setting name="jdbcTypeForNull" value="NULL" />
+
+
     </settings>
 
 
@@ -60,32 +65,26 @@
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
 
-        <typeAlias alias="user" type="com.example.domain.User"/>
+        <!--<typeAlias alias="User" type="com.example.domain.User"/>-->
     </typeAliases>
 
     <!-- mybatis拦截器 -->
-    <plugins>
-        <plugin interceptor="com.github.pagehelper.PageHelper">
-            <property name="dialect" value="mysql"/>
 
-            <!--默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。-->
-            <property name="offsetAsPageNum" value="true"/>
-
-            <!--默认值为false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询-->
-            <property name="rowBoundsWithCount" value="false"/>
-
-            <!--默认值为 false，当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）-->
-            <property name="pageSizeZero" value="true"/>
-
-            <!--分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询-->
-            <property name="reasonable" value="false"/>
-
-            <!--支持通过 Mapper 接口参数来传递分页参数，默认值false-->
-            <property name="supportMethodsArguments" value="false"/>
-
-
-            <property name="returnPageInfo" value="none"/>
-        </plugin>
-
-    </plugins>
+    
+    <environments default="">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <!-- value属性值引用db.properties配置文件中配置的值 -->
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${name}" />
+                <property name="password" value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis/UserMapper.xml"/>
+    </mappers>
 </configuration>

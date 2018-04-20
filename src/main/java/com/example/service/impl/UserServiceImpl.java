@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List getUsers() {
-        return userMapper.getUsers();
+    public List getAll2() {
+        return userMapper.getAll2();
     }
 
     @Override
@@ -39,5 +40,28 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserByAge(Integer age) {
         List<User> userList = userMapper.getUserByAge(age);
         return userList;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Boolean updateByUser(User user) {
+        boolean flag = userMapper.updateByUser(user);
+        //int i = 1/0;
+        return flag;
+    }
+
+    @Override
+    public boolean add(User user) {
+        return userMapper.add(user);
+    }
+
+    @Override
+    public int deleteById(Integer id) {
+        return userMapper.deleteById(id);
+    }
+
+    @Override
+    public List<User> findByUserNameLike(User user) {
+        return userMapper.findByUserNameLike(user);
     }
 }

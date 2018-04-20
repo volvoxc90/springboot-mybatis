@@ -17,11 +17,17 @@ public interface UserMapper extends MyMapper {
 
     public List<User> getUserByName(@Param("username") String username);
 
-    public List getUsers();
+    public List getAll2();
 
     public List<User> getAll(@Param("user") User user);
 
     public List<User> getUserByAge(@Param("age") Integer age);
 
+    public Boolean updateByUser(@Param("user") User user);
 
+    public boolean add(@Param("user") User user);
+
+    public int deleteById(Integer id);
+
+    public List<User> findByUserNameLike(@Param("user") User user);
 }

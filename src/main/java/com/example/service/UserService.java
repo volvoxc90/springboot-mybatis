@@ -13,9 +13,18 @@ import java.util.List;
 public interface UserService {
     public List<User> getUserByName(String name);
 
-    public List getUsers();
+    public List getAll2();
 
     public List<User> getAll(User user);
 
     public List<User> getUserByAge(Integer age);
+
+    public Boolean updateByUser(User user);
+
+    public boolean add(User user);
+
+    public int deleteById(Integer id);
+
+    public List<User> findByUserNameLike(User user);
+
 }

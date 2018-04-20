@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,10 +63,14 @@ public class UserController {
         return pageInfo;
     }
 
-    @RequestMapping("user/getUsers")
-    public WebResult getUsers() {
-        List list = userService.getUsers();
-        return new WebResult("SUCCESS", list);
+    /**
+     * 不带分页和参数
+     * @return
+     */
+    @RequestMapping("user/getAll2")
+    public PageInfo getAll2() {
+        List list = userService.getAll2();
+        return new PageInfo(list);
     }
 
     /**
@@ -89,5 +94,36 @@ public class UserController {
     public WebResult getUserByAge2(@RequestParam Integer age) {
         List<User> userList = userService.getUserByAge(age);
         return new WebResult("SUCCESS", userList);
+    }
+
+    @RequestMapping(value = "user/updateByUser")
+    public WebResult updateByUser(User user) {
+        boolean flag = userService.updateByUser(user);
+        if(flag){
+            return new WebResult("success", "修改成功");
+        }
+        return new WebResult("faile", "修改失败");
+    }
+
+    @RequestMapping(value = "user/add", method = RequestMethod.POST)
+    public WebResult add(User user){
+        //user.setCtm(new Date().toString());
+        boolean flag = userService.add(user);
+        if (flag)
+            return new WebResult("success", "新增成功");
+        return new WebResult("faile", "新增失败");
+    }
+
+    @RequestMapping(value = "user/deleteById")
+    public WebResult deleteById(@RequestParam Integer id) {
+        int flag = userService.deleteById(id);
+        if (flag == 1) return new WebResult("success", "删除成功");
+        return new WebResult("faile", "删除失败");
+    }
+
+    @RequestMapping(value = "user/findByUserNameLike")
+    public PageInfo<User> findByUserNameLike(User user) {
+        List<User> list = userService.findByUserNameLike(user);
+        return new PageInfo<>(list);
     }
 }

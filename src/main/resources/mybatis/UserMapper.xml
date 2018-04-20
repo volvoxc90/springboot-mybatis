@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <!-- 二级缓存 -->
+    <cache readOnly="true" size="512"/>
+
+    <resultMap id="user" type="com.example.domain.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="ctm" property="ctm" jdbcType="TIMESTAMP"/>
+        <result column="contact_address" property="contactAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, username, age, ctm, contact_address
+    </sql>
+
+
+    <select id="getUserByName" parameterType="String" resultType="com.example.domain.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user
+        WHERE username = #{username}
+    </select>
+
+    <select id="getAll2" resultMap="com.example.domain.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user
+
+    </select>
+
+    <select id="getAll" resultMap="com.example.domain.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user
+        <if test="user != null">
+            WHERE contact_address = #{user.contactAddress}
+            AND age = #{user.age}
+            AND username = #{user.username}
+
+        </if>
+
+    </select>
+
+    <select id="getUserByAge" resultMap="com.example.domain.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user
+        <if test="#{age} != null">
+            WHERE age = #{age}
+        </if>
+
+    </select>
+
+    <select id="findByUserNameLike" parameterType="com.example.domain.User" resultMap="com.example.domain.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_user
+        <if test="username != null">
+            WHERE username LIKE #{user.username}
+        </if>
+    </select>
+
+    <update id="updateByUser">
+        UPDATE tb_user
+        SET age=#{user.age},
+            username=#{user.username},
+            contact_address=#{user.contactAddress}
+        WHERE id=#{user.id}
+    </update>
+
+    <insert id="add" parameterType="com.example.domain.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_user(username, age, ctm, contact_address)
+        VALUES(
+        #{username},
+        #{age},
+        now(),
+        #{contactAddress}
+        )
+
+    </insert>
+
+   <delete id="deleteById">
+      DELETE FROM tb_user WHERE  id=#{id}
+   </delete>
+</mapper>
