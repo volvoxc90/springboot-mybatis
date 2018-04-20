@@ -7,7 +7,6 @@ import javax.persistence.*;
  * @author zhugp
  * @create 2018-04-17 12:39
  **/
-@Data
 public class BaseEntity {
     @Id
     @Column(name = "Id")

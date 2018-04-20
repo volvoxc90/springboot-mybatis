@@ -25,14 +25,13 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "user/getUserByName", method = RequestMethod.GET)
-    public WebResult getUserByName(@RequestParam("username") String username) {
-        if (StringUtils.isBlank(username))
-            return new WebResult("FAILD", "请输入参数");
+    public PageInfo<User> getUserByName(@RequestParam("username") String username) {
         try {
             List list = userService.getUserByName(username);
-            return new WebResult("SUCCESS", list);
+            return new PageInfo<User>(list);
         } catch (Exception e) {
-            return new WebResult("ERROR", e.getClass().getName());
+            e.printStackTrace();
+            return null;
         }
     }
 

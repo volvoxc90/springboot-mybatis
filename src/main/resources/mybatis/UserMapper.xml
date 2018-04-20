@@ -18,21 +18,21 @@
     </sql>
 
 
-    <select id="getUserByName" parameterType="String" resultType="com.example.domain.User">
+    <select id="getUserByName" parameterType="String" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
         WHERE username = #{username}
     </select>
 
-    <select id="getAll2" resultMap="com.example.domain.User">
+    <select id="getAll2" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
 
     </select>
 
-    <select id="getAll" resultMap="com.example.domain.User">
+    <select id="getAll" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
@@ -45,7 +45,7 @@
 
     </select>
 
-    <select id="getUserByAge" resultMap="com.example.domain.User">
+    <select id="getUserByAge" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
@@ -55,7 +55,7 @@
 
     </select>
 
-    <select id="findByUserNameLike" parameterType="com.example.domain.User" resultMap="com.example.domain.User">
+    <select id="findByUserNameLike" parameterType="user" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
