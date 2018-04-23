@@ -55,11 +55,13 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "user/getAll")
-    public PageInfo<User> getAll(User user) {
+    public WebResult<User> getAll(User user) {
+        WebResult result = new WebResult();
+        result.setCode("success");
         PageHelper.startPage(1, 12);
         List<User> userList = userService.getAll(user);
-        PageInfo pageInfo = new PageInfo(userList);
-        return pageInfo;
+        result.setData(new PageInfo<User>(userList));
+        return result;
     }
 
     /**
@@ -67,9 +69,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("user/getAll2")
-    public PageInfo getAll2() {
+    public WebResult<User> getAll2() {
         List list = userService.getAll2();
-        return new PageInfo(list);
+        return new WebResult("success", new PageInfo<User>(list));
     }
 
     /**
@@ -78,10 +80,13 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "user/getUserByAge")
-    public PageInfo<User> getUserByAge(@RequestParam Integer age) {
+    public WebResult<User> getUserByAge(@RequestParam Integer age) {
+        WebResult result = new WebResult();
         List<User> userList = userService.getUserByAge(age);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
-        return pageInfo;
+        result.setCode("success");
+        result.setData(pageInfo);
+        return result;
     }
 
     /**
@@ -91,8 +96,12 @@ public class UserController {
      */
     @RequestMapping(value = "user/getUserByAge2")
     public WebResult getUserByAge2(@RequestParam Integer age) {
+        WebResult result = new WebResult();
         List<User> userList = userService.getUserByAge(age);
-        return new WebResult("SUCCESS", userList);
+        PageInfo<User> pageInfo = new PageInfo<>(userList);
+        result.setCode("success");
+        result.setData(pageInfo);
+        return result;
     }
 
     @RequestMapping(value = "user/updateByUser")

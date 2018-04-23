@@ -7,23 +7,30 @@ import java.io.Serializable;
 /**
  * @author zhugp
  * @create 2018-03-09 17:22
+ *
+ * 返回结果
  **/
-public class WebResult implements Serializable {
+public class WebResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String code;//响应状态码
 
-    private Object result;//响应内容
+//    private Object result;//响应内容
 
-    private Object info;//其他信息
+    private T data;
+
+//    private boolean status;
+
+//    private Object info;//其他信息
 
     public WebResult() {
     }
 
-    public WebResult(String code, Object result) {
+    public WebResult(String code, T data) {
+        this.data = data;
         this.code = code;
-        this.result = result;
     }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -37,19 +44,12 @@ public class WebResult implements Serializable {
         this.code = code;
     }
 
-    public Object getResult() {
-        return result;
+
+    public T getData() {
+        return data;
     }
 
-    public void setResult(Object result) {
-        this.result = result;
-    }
-
-    public Object getInfo() {
-        return info;
-    }
-
-    public void setInfo(Object info) {
-        this.info = info;
+    public void setData(T data) {
+        this.data = data;
     }
 }
