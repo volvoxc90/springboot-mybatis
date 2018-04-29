@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 public class UserController {
 
-
     @Autowired
     UserService userService;
 
@@ -134,4 +133,6 @@ public class UserController {
         List<User> list = userService.findByUserNameLike(user);
         return new PageInfo<>(list);
     }
+
+
 }

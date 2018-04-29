@@ -7,7 +7,6 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 /**
- * @author zhugp
  * @create 2018-03-16 11:47
  **/
 public interface UserService {
