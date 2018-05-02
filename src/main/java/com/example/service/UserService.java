@@ -16,7 +16,7 @@ public interface UserService {
 
     public List<User> getAll(User user);
 
-    public List<User> getUserByAge(Integer age);
+    public User getUserById(Integer id);
 
     public Boolean updateByUser(User user);
 
@@ -24,6 +24,6 @@ public interface UserService {
 
     public int deleteById(Integer id);
 
-    public List<User> findByUserNameLike(User user);
+
 
 }

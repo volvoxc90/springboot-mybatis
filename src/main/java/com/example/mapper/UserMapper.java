@@ -21,7 +21,7 @@ public interface UserMapper extends MyMapper {
 
     public List<User> getAll(@Param("user") User user);
 
-    public List<User> getUserByAge(@Param("age") Integer age);
+    public User getUserById(@Param("id") Integer id);
 
     public Boolean updateByUser(@Param("user") User user);
 
@@ -29,5 +29,4 @@ public interface UserMapper extends MyMapper {
 
     public int deleteById(Integer id);
 
-    public List<User> findByUserNameLike(@Param("user") User user);
 }

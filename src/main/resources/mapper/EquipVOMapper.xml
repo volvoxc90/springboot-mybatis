@@ -16,49 +16,49 @@
             crate_time,
             update_time,
             remark
-
         )
         VALUES(
-        #{equipName},
-        #{typeNo},
-        #{serialNo},
-        #{factoryTime},
-        #{imgPath},
-        #{typeId},
-        #{brand},
-        #{factory},
-        #{buyTime},
+        #{equipVO.equipName},
+        #{equipVO.typeNo},
+        #{equipVO.serialNo},
+        #{equipVO.factoryTime},
+        #{equipVO.imgPath},
+        #{equipVO.typeId},
+        #{equipVO.brand},
+        #{equipVO.factory},
         now(),
         now(),
-        #{remark}
+        now(),
+        #{equipVO.remark}
         )
     </insert>
 
-    <update id="update" parameterType="com.example.domain.EquipVO">
+    <update id="update">
         UPDATE t_equip
         SET
-            name=#{equipName},
-            type_no=#{typeNo},
-            serial_no=#{serialNo},
-            factory_time=#{factoryTime},
-            img_path=#{imgPath},
-            type_id=#{typeId},
-            brand=#{brand},
-            factory=#{factory},
-            buy_time=#{buyTime},
-            now(),
-           remark= #{remark},
-           status= #{status}
-        WHERE id = #{id}
+            name=#{equipVO.equipName},
+            type_no=#{equipVO.typeNo},
+            serial_no=#{equipVO.serialNo},
+            factory_time=#{equipVO.factoryTime},
+            img_path=#{equipVO.imgPath},
+            type_id=#{equipVO.typeId},
+            brand=#{equipVO.brand},
+            factory=#{equipVO.factory},
+            buy_time=#{equipVO.buyTime},
+            update_time=now(),
+           remark= #{equipVO.remark},
+           status= #{equipVO.status}
+        WHERE id = #{equipVO.id}
     </update>
 
     <delete id="delById" parameterType="java.lang.Integer">
         DELETE FROM t_equip WHERE id=#{id}
     </delete>
 
-    <select id="find" parameterType="com.example.domain.EquipVO" resultMap="com.example.domain.EquipVO">
+    <select id="find" parameterType="com.example.domain.EquipVO" resultType="com.example.domain.EquipVO">
         SELECT
-        name AS equipName,
+        t.name AS equipName,
+        y.name AS typeName,
         type_no,
         serial_no,
         factory_time,
@@ -70,17 +70,17 @@
         remark,
         status
         FROM t_equip t, t_type y
-        WHERE t.type_id = t.id
-        <if test="#{equipName != null and equipName != ''}">
+        WHERE t.type_id = y.id
+        <if test="equipName != null and equipName != ''">
             AND t.name=#{equipName}
         </if>
-        <if test="#{typeId != null and typeId != ''}">
+        <if test="typeName != null and typeName != ''">
             AND t.type_id=#{typeId}
         </if>
-        <if test="#{beginTime != null and beginTime != ''}">
+        <if test="beginTime != null and beginTime != ''">
             AND t.buy_time &gt;= #{beginTime}
         </if>
-        <if test="#{endTime != null and endTime != ''}">
+        <if test="endTime != null and endTime != ''">
             AND t.buy_time &lt;= #{endTime}
         </if>
     </select>

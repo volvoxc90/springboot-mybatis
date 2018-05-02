@@ -7,14 +7,14 @@
 
     <resultMap id="user" type="com.example.domain.User">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="age" property="age" jdbcType="INTEGER"/>
         <result column="ctm" property="ctm" jdbcType="TIMESTAMP"/>
         <result column="contact_address" property="contactAddress" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, username, age, ctm, contact_address
+        id, user_name, age, ctm, contact_address
     </sql>
 
 
@@ -22,7 +22,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
-        WHERE username = #{username}
+        WHERE user_name = #{userName}
     </select>
 
     <select id="getAll2" resultMap="user">
@@ -39,46 +39,37 @@
         <if test="user != null">
             WHERE contact_address = #{user.contactAddress}
             AND age = #{user.age}
-            AND username = #{user.username}
+            AND user_name = #{user.userName}
 
         </if>
 
     </select>
 
-    <select id="getUserByAge" resultMap="user">
+    <select id="getUserById" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
-        <if test="#{age} != null">
-            WHERE age = #{age}
+        <if test="#{id} != null">
+            WHERE id = #{id}
         </if>
 
-    </select>
-
-    <select id="findByUserNameLike" parameterType="user" resultMap="user">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM tb_user
-        <if test="username != null">
-            WHERE username LIKE #{user.username}
-        </if>
     </select>
 
     <update id="updateByUser">
         UPDATE tb_user
         SET age=#{user.age},
-            username=#{user.username},
+            user_name=#{user.userName},
             contact_address=#{user.contactAddress}
         WHERE id=#{user.id}
     </update>
 
     <insert id="add" parameterType="com.example.domain.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tb_user(username, age, ctm, contact_address)
+        INSERT INTO tb_user(user_name, age, ctm, contact_address)
         VALUES(
-        #{username},
-        #{age},
+        #{user.userName},
+        #{user.age},
         now(),
-        #{contactAddress}
+        #{user.contactAddress}
         )
 
     </insert>

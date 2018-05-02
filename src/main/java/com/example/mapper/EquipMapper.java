@@ -3,6 +3,7 @@ package com.example.mapper;
 import com.example.domain.EquipVO;
 import com.example.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,11 +13,11 @@ import java.util.List;
 @Mapper
 public interface EquipMapper extends MyMapper {
 
-    public boolean save(EquipVO equipVO);
+    public boolean save(@Param("equipVO")EquipVO equipVO);
 
-    public boolean update(EquipVO equipVO);
+    public boolean update(@Param("equipVO")EquipVO equipVO);
 
-    public boolean delById(int id);
+    public boolean delById(@Param("id")int id);
 
     public List<EquipVO> find(EquipVO equipVO);
 

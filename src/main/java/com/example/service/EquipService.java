@@ -13,7 +13,7 @@ public interface EquipService {
 
     public boolean update(EquipVO equipVO);
 
-    public boolean delById(int id);
+    public boolean delById(Integer id);
 
     public List<EquipVO> find(EquipVO equipVO);
 }

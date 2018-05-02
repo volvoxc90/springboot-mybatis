@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserByAge(Integer age) {
-        List<User> userList = userMapper.getUserByAge(age);
-        return userList;
+    public User getUserById(Integer id) {
+       User user  = userMapper.getUserById(id);
+        return user;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -60,8 +60,5 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteById(id);
     }
 
-    @Override
-    public List<User> findByUserNameLike(User user) {
-        return userMapper.findByUserNameLike(user);
-    }
+
 }

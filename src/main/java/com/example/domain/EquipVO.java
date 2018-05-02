@@ -7,7 +7,7 @@ import java.io.Serializable;
  **/
 public class EquipVO extends BaseEntity implements Serializable {
     //设备id
-    private int id;
+    private Integer id;
     //设备名称
     private String equipName;
     //类型名称 常用类、普通类、闲杂类
@@ -65,7 +65,13 @@ public class EquipVO extends BaseEntity implements Serializable {
                 ", status='" + status + '\'' +
                 '}';
     }
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getEquipName() {
         return equipName;
     }

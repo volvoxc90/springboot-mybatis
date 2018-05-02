@@ -5,20 +5,21 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author zhugp
  * @create 2018-03-16 11:44
  **/
 public class User extends BaseEntity implements Serializable {
 
     private Integer id;
 
-    private String username;
+    private String userName;
 
     private Integer age;
 
-    private  String ctm;
+    private String ctm;
 
     private String contactAddress;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -28,12 +29,12 @@ public class User extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Integer getAge() {
@@ -60,14 +61,24 @@ public class User extends BaseEntity implements Serializable {
         this.contactAddress = contactAddress;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", age=" + age +
                 ", ctm='" + ctm + '\'' +
                 ", contactAddress='" + contactAddress + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

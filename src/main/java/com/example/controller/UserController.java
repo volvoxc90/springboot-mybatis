@@ -6,6 +6,9 @@ import com.example.utils.WebResult;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +27,10 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "user/getUserByName", method = RequestMethod.GET)
-    public PageInfo<User> getUserByName(@RequestParam("username") String username) {
+    public List<User> getUserByName(@RequestParam("username") String username) {
         try {
             List list = userService.getUserByName(username);
-            return new PageInfo<User>(list);
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -112,15 +115,12 @@ public class UserController {
         return new WebResult("faile", "修改失败");
     }
 
-    @RequestMapping(value = "user/add", method = RequestMethod.POST)
-    public WebResult add(User user){
-        //user.setCtm(new Date().toString());
-        boolean flag = userService.add(user);
-        if (flag)
-            return new WebResult("success", "新增成功");
-        return new WebResult("faile", "新增失败");
-    }
 
+    /**
+     * 管理员删除用户
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "user/deleteById")
     public WebResult deleteById(@RequestParam Integer id) {
         int flag = userService.deleteById(id);
@@ -128,11 +128,49 @@ public class UserController {
         return new WebResult("faile", "删除失败");
     }
 
-    @RequestMapping(value = "user/findByUserNameLike")
-    public PageInfo<User> findByUserNameLike(User user) {
-        List<User> list = userService.findByUserNameLike(user);
-        return new PageInfo<>(list);
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
+    @ApiOperation(value = "用户登录", notes = "根据用户名和密码登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名称", required = true , dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "user/login")
+    public WebResult login(@RequestParam String username, String password) {
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return new WebResult("failed", "请输入用户名或者密码");
+        }
+        List list = this.getUserByName(username);
+        if (list.size() > 0) {
+            return new WebResult("success", "登录成功");
+        }
+        return null;
     }
 
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "user/add", method = RequestMethod.POST)
+    public WebResult add( User user){
+        try {
+            if (StringUtils.isBlank(user.getUserName())) {
+                return new WebResult("failed", "新增失败");
+            }
+            boolean flag = userService.add(user);
+            if (flag)
+                return new WebResult("success", "新增成功");
+            return new WebResult("failed", "新增失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new WebResult("error", e.getClass().getName());
+        }
 
+    }
 }

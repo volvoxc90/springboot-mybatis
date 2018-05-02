@@ -27,7 +27,7 @@ public class EquipServiceImpl implements EquipService {
     }
 
     @Override
-    public boolean delById(int id) {
+    public boolean delById(Integer id) {
         return equipMapper.delById(id);
     }
 
