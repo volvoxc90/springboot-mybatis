@@ -1,25 +1,22 @@
 package com.example.mapper;
 
-/**
- * @author zhugp
- * @create 2018-03-16 14:03
- **/
 
 import com.example.domain.User;
 import com.example.utils.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Mapper
 public interface UserMapper extends MyMapper {
 
-    public List<User> getUserByName(@Param("username") String username);
+    public User getUserByName(@Param("userName") String userName);
 
-    public List getAll2();
+    public User getUser(@Param("userName")String userName, @Param("password")String password);
 
-    public List<User> getAll(@Param("user") User user);
+    public List queryAll();
 
     public User getUserById(@Param("id") Integer id);
 
@@ -27,6 +24,8 @@ public interface UserMapper extends MyMapper {
 
     public boolean add(@Param("user") User user);
 
-    public int deleteById(Integer id);
+    public boolean deleteById(Integer id);
+
+    public boolean updatePwd(@Param("password") String password, @Param("id") Integer id);
 
 }

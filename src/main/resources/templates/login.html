@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>设备管理系统登录界面</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="alternate icon" type="image/png" href="static/assets/i/favicon.png">
+  <link rel="stylesheet" href="static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" type="text/css" href="static/assets/css/verify.css">
+  <script src="static/assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+  <script src="static/assets/js/amazeui.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="static/assets/js/verify.min.js" ></script>
+  <script src="static/assets/js/jquery.form.js"></script>
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="am-g">
+    <h1>设备管理系统</h1>
+  </div>
+  <hr />
+</div>
+<div class="am-g">
+  <div class="am-u-lg-3 am-u-md-8 am-u-sm-centered">  
+    <form action="" class="am-form" id="LoginForm">
+      <fieldset>
+        <div class="am-form-group am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+          <input type="text" class="am-form-field" id="userId"  minlength="2"  maxlength="12"  placeholder="UserName" required/>
+        </div>
+
+        <div class="am-form-group am-input-group">
+          <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+          <input type="Password" class="am-form-field" id="password" minlength="6" maxlength="20" placeholder="Password" required/>
+        </div>
+
+      <input type="button" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl" onclick="login()">
+      <input type="button" name="" value="忘记密码" class="am-btn am-btn-default am-btn-sm am-fr" data-am-modal="{target: '#forgetPasswordModal', closeViaDimmer: 0}">
+      </fieldset>
+    </form>
+  </div>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="forgetPasswordModal">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">密码找回
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+      <form action="" class="am-form" id="forgetPasswordForm" data-am-validator>
+        <fieldset>
+          <div class="am-form-group am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" id="doc-vld-name-2-1" pattern="^[a-zA-Z]+[0-9a-zA-Z]{6,12}$"  maxlength="12" data-validation-message="用户名只能是字母、数字，且首位必须是字母,长度6-12位！" placeholder="用户名" required/>
+          </div>             
+        <div class="am-form-group am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-envelope am-icon-fw"></i></span>
+            <input type="email" id="doc-vld-email-2" placeholder="注册邮箱" required/>
+          </div>
+        
+        <input type="button" name="" value="提 交" class="am-btn am-btn-primary am-btn-sm am-fl">
+        <input type="button" name="" value="取 消" class="am-btn am-btn-default am-btn-sm am-fr">
+        </fieldset>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+  <footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2018 </p>
+  </footer>
+</body>
+</html>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="myAlert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd" id="myAlertTitle"></div>
+    <div class="am-modal-bd" id='myAlertContent'>
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="myVerify">
+  <div class="am-modal-dialog">
+      <div class="am-modal-hd">拖动方块到空白处完成验证
+          <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+    <div class="am-modal-bd"  style=>
+        <div id="mpanel"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  $('#forgetPasswordForm').validator({
+    onValid: function(validity) {
+      $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+    },
+    onInValid: function(validity) {
+      var $field = $(validity.field);
+      var $group = $field.closest('.am-form-group');
+      var $alert = $group.find('.am-alert');
+      // 使用自定义的提示信息 或 插件内置的提示信息
+      var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+
+      if (!$alert.length) {
+        $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
+          appendTo($group);
+      }
+
+      $alert.html(msg).show();
+    }
+  });
+
+  $('#mpanel').slideVerify({
+			type : 2,		//类型
+			vOffset : 5,	//误差量，根据需求自行调整
+			vSpace : 5,	//间隔
+			imgName : ['3.jpg', '4.png'],
+			imgSize : {
+				width: '520px',
+				height: '200px',
+			},
+			blockSize : {
+				width: '40px',
+				height: '40px',
+			},
+			barSize : {
+				width : '520px',
+				height : '40px',
+			},
+			ready : function() {
+			},
+			success : function() {
+        var mUserId = $('#userId').val();
+        var mPassword = $('#password').val();
+				$.post('http://localhost:8080/user/login',{userName:mUserId,password:mPassword},function(data,textStatus){
+          if (data.code=='success') {
+            location.href = "index.html";
+          }
+          else
+          {
+            showAlert('登录失败','账号或密码错误！')
+            $('#myVerify').modal('close');
+          }
+        })
+      },
+			error : function() {
+			}
+  });
+});
+
+  function showAlert(title,messge){
+    $('#myAlertTitle').text(title);
+    $('#myAlertContent').text(messge);
+    $('#myAlert').modal('open');
+  }
+ 
+ function login(){
+  var validateResult = $('#LoginForm').validator('isFormValid');
+  if (validateResult){
+    $('#myVerify').modal('open');
+  }  
+ }
+</script>

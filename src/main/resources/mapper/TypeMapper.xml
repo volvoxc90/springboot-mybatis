@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TypeMapper">
+    <insert id="save" parameterType="com.example.domain.Type" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_type(name)
+        VALUES (#{typeVO.name})
+
+    </insert>
+
+    <update id="update" parameterType="com.example.domain.Type">
+        UPDATE t_type
+        SET NAME = #{typeVO.name}
+        WHERE id = #{typeVO.id}
+
+    </update>
+
+    <delete id="del" parameterType="java.lang.Integer">
+        DELETE FROM t_type WHERE id = #{id}
+    </delete>
+
+    <select id="find" resultType="com.example.domain.Type">
+        SELECT id, name FROM t_type
+    </select>
+    <select id="queryAll" resultType="com.example.domain.Type">
+        SELECT id, name FROM t_type
+    </select>
+    <select id="queryById" resultType="com.example.domain.Type">
+        SELECT id, name FROM t_type
+    </select>
+</mapper>

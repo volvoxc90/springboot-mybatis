@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.EquipRepairMapper">
+    <insert id="save" parameterType="com.example.domain.EquipRepair" keyProperty="id" useGeneratedKeys="true">
+      INSERT INTO t_equip_repair
+      (equip_info_id, type_id, repair_point, repairer, repair_time, failure_cause, remark)
+      VALUES
+      (
+        #{equipRepair.equipInfoId},
+        #{equipRepair.typeId},
+        #{equipRepair.repairPoint},
+        #{equipRepair.repairer},
+        now(),
+        #{equipRepair.failureCause},
+        #{equipRepair.remark}
+      )
+    </insert>
+
+    <update id="update">
+      UPDATE t_equip_repair
+      SET
+      remark = #{equipRepair.remark}
+      WHERE id = #{equipRepair.id}
+    </update>
+
+    <delete id="del" parameterType="java.lang.Integer">
+      DELETE FROM t_equip_repair WHERE id = #{id}
+    </delete>
+
+    <select id="find" parameterType="com.example.domain.EquipRepair" resultType="com.example.domain.EquipRepair">
+      SELECT
+          t.id            AS id,
+          t.equip_info_id AS equipInfoId,
+          t.type_id       AS typeId,
+          t.repair_point  AS repairPoint,
+          t.repairer      AS repairer,
+          t.repair_time   AS repairTime,
+          t.failure_cause AS failureCause,
+          t.remark        AS remark,
+          t1.name         AS equipName,
+          t1.status       AS status,
+          t2.name         AS typeName
+      FROM t_equip_repair t, t_equip_info t1, t_type t2
+      WHERE t.equip_info_id = t1.id
+      AND   t.type_id = t2.id
+      AND t1.status  IN(1,2,3)
+      <if test="equipName != null and equipName != ''">
+          AND t1.name = #{equipName}
+      </if>
+      <if test="typeName != null and typeName != ''">
+          AND t2.name = #{typeName}
+      </if>
+
+      <if test="beginTime != null and beginTime != ''">
+          AND t.repair_time &gt;= #{beginTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+          AND t.repair_time &lt;= #{endTime}
+      </if>
+    </select>
+
+    <select id="queryCount" parameterType="com.example.domain.EquipRepair" resultType="java.lang.Integer">
+      SELECT count(1)
+      FROM t_equip_repair t, t_equip_info t1, t_type t2
+      WHERE t.equip_info_id = t1.id
+      AND   t.type_id = t2.id
+      AND t1.status  IN(1,2,3)
+    </select>
+</mapper>

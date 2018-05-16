@@ -9,12 +9,13 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="ctm" property="ctm" jdbcType="TIMESTAMP"/>
         <result column="contact_address" property="contactAddress" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, user_name, age, ctm, contact_address
+        id, user_name, password, status, email
     </sql>
 
 
@@ -25,23 +26,16 @@
         WHERE user_name = #{userName}
     </select>
 
-    <select id="getAll2" resultMap="user">
-        SELECT
-        <include refid="Base_Column_List"/>
+    <select id="getUser" parameterType="java.lang.String" resultMap="user">
+        SELECT id, user_name, password
         FROM tb_user
-
+        WHERE user_name = #{userName} AND password = #{password}
     </select>
 
-    <select id="getAll" resultMap="user">
+    <select id="queryAll" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
-        <if test="user != null">
-            WHERE contact_address = #{user.contactAddress}
-            AND age = #{user.age}
-            AND user_name = #{user.userName}
-
-        </if>
 
     </select>
 
@@ -55,21 +49,27 @@
 
     </select>
 
-    <update id="updateByUser">
+    <update id="updateByUser" parameterType="com.example.domain.User">
         UPDATE tb_user
-        SET age=#{user.age},
+        SET
             user_name=#{user.userName},
-            contact_address=#{user.contactAddress}
+            password=#{user.password},
+            email=#{user.email}
         WHERE id=#{user.id}
     </update>
 
     <insert id="add" parameterType="com.example.domain.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tb_user(user_name, age, ctm, contact_address)
+        INSERT INTO tb_user
+        (user_name,
+        password,
+        ctm,
+        email
+        )
         VALUES(
         #{user.userName},
-        #{user.age},
+        #{user.password},
         now(),
-        #{user.contactAddress}
+        #{user.email}
         )
 
     </insert>
@@ -77,4 +77,10 @@
    <delete id="deleteById">
       DELETE FROM tb_user WHERE  id=#{id}
    </delete>
+
+    <update id="updatePwd" >
+        UPDATE tb_user
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
 </mapper>

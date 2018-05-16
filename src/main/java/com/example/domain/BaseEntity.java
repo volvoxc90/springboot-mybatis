@@ -1,12 +1,8 @@
 package com.example.domain;
-import lombok.Data;
 
 import javax.persistence.*;
 
-/**
- * @author zhugp
- * @create 2018-04-17 12:39
- **/
+
 public class BaseEntity {
     @Id
     @Column(name = "Id")

@@ -11,30 +11,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author zhugp
- * @create 2018-03-16 11:47
- **/
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 
     @Autowired
     private UserMapper userMapper;
     @Override
-    public List<User> getUserByName(String username) {
-        return userMapper.getUserByName(username);
+    public User getUserByName(String userName) {
+        return userMapper.getUserByName(userName);
     }
 
     @Override
-    public List getAll2() {
-        return userMapper.getAll2();
+    public User getUser(String userName, String password) {
+        return userMapper.getUser(userName, password);
     }
 
     @Override
-    public List<User> getAll(User user) {
-        return userMapper.getAll(user);
+    public List queryAll() {
+        return userMapper.queryAll();
     }
+
 
     @Override
     public User getUserById(Integer id) {
@@ -56,8 +55,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteById(Integer id) {
+    public boolean deleteById(Integer id) {
         return userMapper.deleteById(id);
+    }
+
+    @Override
+    public boolean updatePwd(String password, Integer id) {
+        return userMapper.updatePwd(password, id);
     }
 
 

@@ -10,11 +10,12 @@ import java.util.List;
  * @create 2018-03-16 11:47
  **/
 public interface UserService {
-    public List<User> getUserByName(String name);
 
-    public List getAll2();
+    public User getUserByName(String userName);
 
-    public List<User> getAll(User user);
+    public User getUser(String userName, String password);
+
+    public List queryAll();
 
     public User getUserById(Integer id);
 
@@ -22,8 +23,8 @@ public interface UserService {
 
     public boolean add(User user);
 
-    public int deleteById(Integer id);
+    public boolean deleteById(Integer id);
 
-
+    public boolean updatePwd(String password, Integer id);
 
 }

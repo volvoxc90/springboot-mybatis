@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.EquipBorrowReturnMapper">
+    <insert id="save" parameterType="com.example.domain.EquipBorrowReturn" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_equip_borrow_return
+        (equip_info_id, type_id, borrower, borrow_time, borrow_day)
+        VALUES
+        (
+        #{equipBorrowReturn.equipInfoId},
+        #{equipBorrowReturn.typeId},
+        #{equipBorrowReturn.borrower},
+        #{equipBorrowReturn.borrowTime},
+        #{equipBorrowReturn.borrowDay}
+        )
+    </insert>
+    <!--归还-->
+    <insert id="giveBack" parameterType="com.example.domain.EquipBorrowReturn" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_equip_borrow_return
+        (equip_info_id, type_id, borrower, return_time, borrow_day)
+        VALUES
+        (
+            #{equipBorrowReturn.equipInfoId},
+            #{equipBorrowReturn.typeId},
+            #{equipBorrowReturn.borrower},
+            #{equipBorrowReturn.returnTime}
+        )
+    </insert>
+    <!--借出-->
+    <insert id="borrow" parameterType="com.example.domain.EquipBorrowReturn" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_equip_borrow_return
+        (equip_info_id, type_id, borrower, borrow_time, borrow_day)
+        VALUES
+        (
+            #{equipBorrowReturn.equipInfoId},
+            #{equipBorrowReturn.typeId},
+            #{equipBorrowReturn.borrower},
+            #{equipBorrowReturn.borrowTime},
+            #{equipBorrowReturn.borrowDay}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE t_equip_borrow_return
+        SET
+        return_time = #{equipBorrowReturn.returnTime}
+        WHERE id = #{equipBorrowReturn.id}
+    </update>
+
+    <delete id="del">
+        DELETE FROM t_equip_borrow_return WHERE id = #{id}
+    </delete>
+
+    <!-- 查询借出 -->
+    <select id="findBorrows" parameterType="com.example.domain.EquipBorrowReturn"
+            resultType="com.example.domain.EquipBorrowReturn">
+        SELECT
+        t.id            AS id,
+        t.equip_info_id AS equipInfoId,
+        t.type_id       AS typeId,
+        t.borrower      AS borrower,
+        t.borrow_time   AS borrowTime,
+        t.return_time   AS returnTime,
+        t.borrow_day    AS borrowDay,
+        t1.name         AS equipName,
+        t1.status       AS status,
+        t2.name         AS typeName
+        FROM t_equip_borrow_return t
+        INNER JOIN
+        t_equip_info t1
+        ON t.equip_info_id = t1.id
+        INNER JOIN
+        t_type t2
+        ON t.type_id = t2.id
+        <if test="equipName != null and equipName != ''">
+            AND t1.name = #{equipName}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            AND t2.name = #{typeName}
+        </if>
+
+        <if test="beginTime != null and beginTime != ''">
+            AND t.borrow_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND t.borrow_time &lt;= #{endTime}
+        </if>
+    </select>
+
+    <!-- 查询归还 -->
+    <select id="findReturns" parameterType="com.example.domain.EquipBorrowReturn"
+            resultType="com.example.domain.EquipBorrowReturn">
+        SELECT
+        t.id AS id,
+        t.equip_info_id AS equipInfoId,
+        t.type_id AS typeId,
+        t.borrower AS borrower,
+        t.borrow_time AS borrowTime,
+        t.return_time   AS returnTime,
+        t.borrow_day AS borrowDay,
+        t1.name AS equipName,
+        t2.name AS typeName,
+        t1.status AS status
+        FROM t_equip_borrow_return t
+        INNER JOIN
+        t_equip_info t1
+        ON t.equip_info_id = t1.id
+        INNER JOIN
+        t_type t2
+        ON t.type_id = t2.id
+        WHERE  t1.status = 4
+        AND t.return_time IS null
+        <if test="equipName != null">
+            AND t1.name = #{equipName}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            AND t2.name = #{typeName}
+        </if>
+
+        <if test="beginTime != null and beginTime != ''">
+            AND t.borrow_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND t.borrow_time &lt;= #{endTime}
+        </if>
+
+    </select>
+
+    <select id="queryCount"  parameterType="com.example.domain.EquipBorrowReturn" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_equip_borrow_return t
+        INNER JOIN
+        t_equip_info t1
+        ON t.equip_info_id = t1.id
+        INNER JOIN
+        t_type t2
+        ON t.type_id = t2.id
+    </select>
+</mapper>

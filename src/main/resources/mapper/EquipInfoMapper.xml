@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.EquipInfoMapper">
+    <insert id="save" parameterType="com.example.domain.EquipInfoVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_equip_info
+        (
+            name,
+            type_no,
+            serial_no,
+            factory_time,
+            file_data,
+            type_id,
+            brand,
+            factory,
+            buy_time,
+            crate_time,
+            update_time,
+            remark
+        )
+        VALUES(
+        #{equipInfoVO.equipName},
+        #{equipInfoVO.typeNo},
+        #{equipInfoVO.serialNo},
+        #{equipInfoVO.factoryTime},
+        #{equipInfoVO.fileData},
+        #{equipInfoVO.typeId},
+        #{equipInfoVO.brand},
+        #{equipInfoVO.factory},
+        now(),
+        now(),
+        now(),
+        #{equipInfoVO.remark}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE t_equip_info
+        SET
+            name=#{equipInfoVO.equipName},
+            type_no=#{equipInfoVO.typeNo},
+            serial_no=#{equipInfoVO.serialNo},
+            factory_time=#{equipInfoVO.factoryTime},
+            file_data=#{equipInfoVO.fileData},
+            type_id=#{equipInfoVO.typeId},
+            brand=#{equipInfoVO.brand},
+            factory=#{equipInfoVO.factory},
+            buy_time=#{equipInfoVO.buyTime},
+            update_time=now(),
+           remark= #{equipInfoVO.remark}
+        WHERE id = #{equipInfoVO.id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE t_equip_info
+        SET
+           status= #{equipInfoVO.status}
+        WHERE id = #{equipInfoVO.id}
+    </update>
+
+    <delete id="delById" parameterType="java.lang.Integer">
+        DELETE FROM t_equip_info WHERE id=#{id}
+    </delete>
+
+    <select id="find" parameterType="com.example.domain.EquipInfoVO" resultType="com.example.domain.EquipInfoVO">
+        SELECT
+        t.id AS id,
+        t.name AS equipName,
+        t1.name AS typeName,
+        type_no,
+        serial_no,
+        factory_time,
+        file_data,
+        type_id,
+        brand,
+        factory,
+        buy_time,
+        remark,
+        status
+        FROM t_equip_info t, t_type t1
+        WHERE t.type_id = t1.id
+        <if test="equipName != null and equipName != ''">
+            AND t.name = #{equipName}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            AND t1.name = #{typeName}
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            AND t.buy_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND t.buy_time &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="queryAll" resultType="com.example.domain.EquipInfoVO">
+        SELECT id AS equipInfoId, NAME AS equipName FROM t_equip_info
+    </select>
+
+    <select id="queryAllStatus"  resultType="com.example.domain.StatusVO">
+        SELECT
+            COUNT(1) Total,
+            SUM(CASE WHEN STATUS=1 THEN 1 ELSE 0 END) AS free,
+            SUM(CASE WHEN STATUS=2 THEN 1 ELSE 0 END) AS scrap,
+            SUM(CASE WHEN STATUS=3 THEN 1 ELSE 0 END) AS repair,
+            SUM(CASE WHEN STATUS=4 THEN 1 ELSE 0 END) AS borrow
+        FROM t_equip_info
+    </select>
+
+    <select id="queryById" parameterType="java.lang.Integer"  resultType="com.example.domain.EquipInfoVO">
+
+         SELECT
+            id,
+            name,
+            type_no AS typeNo,
+            serial_no AS serialNo,
+            factory_time AS factoryTime,
+            file_data AS fileData,
+            type_id AS typeId,
+            brand AS brand,
+            factory AS factory,
+            buy_time AS buyTime,
+            crate_time AS createTime,
+            update_time AS updateTime,
+            remark AS remark,
+            status AS status
+          FROM t_equip_info WHERE id=#{id}
+    </select>
+</mapper>

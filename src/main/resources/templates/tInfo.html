@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>设备管理系统</title>
+  <meta name="description" content="设备管理系统">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="static/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="static/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="static/assets/css/admin.css">
+  <link rel="stylesheet" href="static/assets/css/jquery.dataTables.min.css">
+  <script src="static/assets/js/jquery.js"></script>
+  <script src="static/assets/js/amazeui.min.js"></script>
+  <script src="static/assets/js/app.js"></script>
+  <script src="static/assets/js/jquery.dataTables.min.js"></script>
+  <script src="static/assets/js/jquery.form.js"></script>
+  <script src="static/assets/js/vue.min.js"></script>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+    <strong>BMS</strong> <small>设备管理系统</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">    	
+		  <li id="admin-um"><a href="#"><span class="am-icon-user"></span> 用户管理</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 修改密码</a></li>
+          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="index.html"><span class="am-icon-home"></span> 首页</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-tasks"></span> 设备信息管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">            
+            <li><a href="eInfo.html"><span> 设备信息 </span> </a></li>
+			<li><a href="tInfo.html" class="am-cf"><span class="am-icon-check"></span> 类型信息 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+          </ul>
+        </li>
+		<li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-wrench"></span> 设备维修管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav2">
+            <li><a href="repairInfo.html" class="am-cf"><span> 设备维修 </span></a></li>
+          </ul>
+        </li>
+		<li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-recycle"></span> 设备报废管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav3">
+           <li><a href="scrapInfo.html" class="am-cf"><span> 设备报废 </span></a></li>
+          </ul>
+        </li>		
+		<li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="am-icon-exchange"></span> 设备借还管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav4">
+              <li><a href="loan.html" class="am-cf"><span> 设备借出  </span></a></li>
+           <li><a href="circulateInfo.html" class="am-cf"><span> 设备借还  </span></a></li>
+          </ul>
+        </li>	
+      </ul>
+    </div>
+  </div>
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">类型信息</strong></div>
+      </div>
+		
+	<div class='am-g'>
+	 <div class="am-u-sm-12 am-u-md-2">
+          <div class="am-btn-toolbar">
+            <div class="am-btn-group am-btn-group-xs">
+              <button type="button" class="am-btn am-btn-primary am-round" onclick="newInfo()" data-am-modal="{target: '#eInfoEdit', closeViaDimmer: 0}"><span class="am-icon-plus"></span>新增</button>
+            </div>
+          </div>
+        </div>
+	</div>
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form">  
+            <table class="" Id="eInfo"  class="display" style="width:100%">
+              <thead>
+              <tr>                    
+					<th>ID</th>
+					<th>类型名称</th>					
+					<th >操作</th>
+              </tr>
+              </thead>
+            </table>           
+          </form>
+        </div>
+      </div>
+	</div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+  </div>
+  <!-- content end -->
+</div>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="eInfoEdit">
+  <div class="am-modal-dialog">
+  <div class="am-modal-hd"><span id='eTitle'></span>
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+  </div>
+   <form class="am-form" id='editForm' action="#" method="post">
+  <fieldset> 
+	 <input type="text" style="display:none;" id='typeId' name='id'/>
+	<div class="am-form-group am-input-group am-u-sm-12">
+      <span class="am-input-group-label">类型名称</span>
+      <input type="text" class="am-form-field" id="typeName" name="name"  placeholder="设备名称" required/>
+    </div>
+	
+	<div class="am-form-group am-u-sm-12">
+    <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+	</div>
+  </fieldset>
+</form>
+  </div>
+</div>
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="myConfirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd" id='myConfirmTitle'></div>
+    <div class="am-modal-bd" id='myConfirmContent'>    
+    </div>
+    <div class="am-modal-footer">     
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+	  <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+    </div>
+  </div>
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="myAlert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd" id="myAlertTitle"></div>
+    <div class="am-modal-bd" id='myAlertContent'>
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+<script>
+var mInfos = [];
+
+function queryInfo(){  
+	$.get("http://localhost:8080/type/find",function (jsonData, status) {
+        $('#eInfo').dataTable().fnClearTable();   //将数据清除
+        $('#eInfo').dataTable().fnAddData(jsonData.data.list);  //重新绑定table数据
+        mInfos = jsonData.data.list;
+		}, "json");
+}
+
+function editInfo(id){
+	$("#editForm").attr('action','http://localhost:8080/type/update');
+	$("#eTitle").text('编辑类型');
+	
+	 $.each(mInfos, function(e) {
+	 if(this.id==id){	 
+			$('#typeId').val(id);
+			$("#typeName").val(this.name);
+			
+			return;
+		}
+	})
+}
+
+function deleteInfo(id){
+	var fun = function(options) {		  
+		 $.get("http://localhost:8080/type/del?id="+id,'',function (data, status) {
+          showAlert('提示','删除成功！');
+          }, "json");
+		}				
+
+	showConfirm("删除确认","您确定要删除这条单据吗？",fun);
+}
+
+function newInfo(){
+	$("#eTitle").text('添加类型');
+	$("#editForm").attr('action','http://localhost:8080/type/save');
+	$("#typeId").val('');
+    $("#typeName").val('');
+}
+
+function showConfirm(title,messge,confirm,onCancel){
+	$('#myConfirmTitle').text(title);
+	$('#myConfirmContent').text(messge);
+	$('#myConfirm').modal({
+		relatedTarget: this,
+		onConfirm: confirm,
+		//closeOnConfirm: false;
+		onCancel: onCancel
+  });
+}
+
+function showAlert(title,messge){
+	$('#myAlertTitle').text(title);
+	$('#myAlertContent').text(messge);
+	$('#myAlert').modal('open');
+	queryInfo();
+}
+
+function iniTDataTable(jsonData)
+{	
+	mInfos = jsonData;
+   var eInfoTable = $('#eInfo').DataTable( {
+		"paging": false, // 禁止分页
+		"bFilter" : false,// 搜索栏  
+		"bInfo" : false,// Showing 1 to 10 of 23 entries 总记录数没也显示多少等信息  
+		"data":jsonData,
+		"columns": [
+		{ "data": "id" },
+		{ "data": "name" },		
+		{ "data": "id","render": function(data,type,row,meta){								
+					return '<td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs"><span class="am-btn am-btn-default am-btn-xs am-text-secondary" onclick="editInfo('+data+')" data-am-modal="{target: \'#eInfoEdit\', closeViaDimmer: 0}"><span class="am-icon-pencil-square-o"></span> 编辑</span><span class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="deleteInfo('+data+')"><span class="am-icon-trash-o"></span> 删除</span></div></div></td>';
+			}
+		}]		
+	} );
+}
+
+$(document).ready(function() {
+	$.get("http://localhost:8080/type/find",function (jsondata, status) {
+	//var jsondata = [{"id": 1,"name":"设备011","typeName":"常用类","typeNo":"010","serialNo":0,"factoryTime":"2017-12-12 00:00:00.0","imgPath":null,"typeId":1,"brand":"戴尔","factory":"戴尔","buyTime":"2018-02-02 00:00:00.0","remark":null,"beginTime":null,"endTime":null,"status":1,"createTime":null,"updateTime":null,"fileData":""}];
+			iniTDataTable(jsondata.data.list);
+		}, "json");
+
+	 $("#editForm").submit(function () {
+            var options = {              
+                beforeSubmit: showRequest,  //提交前的回调函数
+                success: showResponse,
+                error: function (error) { alert(error); },
+                dataType: "json" /*设置返回值类型为文本*/
+            }
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+  });
+  
+  function showRequest(formData, jqForm, options){
+      return true; // 只要不返回false，表单都会提交，在这里可以对表单元素进行验证
+	}
+	
+	function showResponse(responseText,statusText){
+      showAlert('提示','提交成功！');
+        $('#eInfoEdit').modal('close')
+	}
+</script>
+</body>
+</html>
+
+
