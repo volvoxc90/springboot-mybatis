@@ -143,10 +143,10 @@
 					<th>ID</th>
 					<th>设备名称</th>
 					<th >设备类型</th>
-          <th>送修人员</th>
+                    <th>送修人员</th>
 					<th >送修时间</th>
 					<th >送修地点</th>
-          <th >送修原因</th>
+                    <th >送修原因</th>
 					<th >操作</th>
               </tr>
               </thead>
@@ -274,7 +274,7 @@ function repair(id){
 			$("#repairPoint").val(this.repairPoint);
 			$('#repairTime').datepicker('setValue', '');
 			$('#repairer').val(this.repairer);	
-      $('#status').val('3');	
+            $('#status').val('3');
 			$('#failureCause').val(this.failureCause);
 			$('#repairRemark').val(this.remark);	
 			return;
@@ -316,7 +316,7 @@ function iniTDataTable(jsonData)
 		{ "data": "repairPoint" },
 		{ "data": "failureCause" },
 		{ "data": "id","render": function(data,type,row,meta){			
-      if(row.status==3)		{		
+      if(row.status==3 && row.repairFinishTime != null)		{
 				return '<td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs"><span class="am-btn am-btn-default am-btn-xs am-text-secondary" onclick="repair('+data+')" data-am-modal="{target: \'#repairModal\', closeViaDimmer: 0, width: 800, height: 500}"><span class="am-icon-pencil-square-o"></span>详情</span></div></td>';				
 			}
       else{

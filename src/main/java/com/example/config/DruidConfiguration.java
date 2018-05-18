@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * @create 2018-03-13 18:00
  **/
 @Configuration
-@PropertySource(value = "classpath:db.properties")
+//@PropertySource(value = "classpath:db.properties")
 public class DruidConfiguration {
 
     @Bean(initMethod = "init", destroyMethod = "close")

@@ -24,6 +24,8 @@ public class EquipRepair extends BaseEntity implements Serializable {
 
     private String remark;
 
+    private String repairFinishTime;
+
     // 开始日期
     private String beginTime;
     // 结束日期
@@ -31,6 +33,14 @@ public class EquipRepair extends BaseEntity implements Serializable {
 
     // 设备状态 (1:空闲，2：报废，3：维修，4：借出)
     private Integer status;
+
+    public String getRepairFinishTime() {
+        return repairFinishTime;
+    }
+
+    public void setRepairFinishTime(String repairFinishTime) {
+        this.repairFinishTime = repairFinishTime;
+    }
 
     public String getBeginTime() {
         return beginTime;
@@ -151,6 +161,7 @@ public class EquipRepair extends BaseEntity implements Serializable {
                 ", repairTime='" + repairTime + '\'' +
                 ", failureCause='" + failureCause + '\'' +
                 ", remark='" + remark + '\'' +
+                ", repairFinishTime='" + repairFinishTime + '\'' +
                 ", beginTime='" + beginTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", status=" + status +

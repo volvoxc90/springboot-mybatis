@@ -19,7 +19,8 @@
     <update id="update">
       UPDATE t_equip_repair
       SET
-      remark = #{equipRepair.remark}
+      remark = #{equipRepair.remark},
+      repair_finish_time = #{equipRepair.repairFinishTime}
       WHERE id = #{equipRepair.id}
     </update>
 
@@ -37,6 +38,7 @@
           t.repair_time   AS repairTime,
           t.failure_cause AS failureCause,
           t.remark        AS remark,
+          t.repair_finish_time  AS repairFinishTime,
           t1.name         AS equipName,
           t1.status       AS status,
           t2.name         AS typeName
