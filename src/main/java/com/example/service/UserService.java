@@ -5,13 +5,14 @@ import com.example.utils.MyMapper;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @create 2018-03-16 11:47
  **/
 public interface UserService {
 
-    public User getUserByName(String userName);
+    public List<User> getUserByName(User user);
 
     public User getUser(String userName, String password);
 
@@ -27,4 +28,5 @@ public interface UserService {
 
     public boolean updatePwd(String password, Integer id);
 
+    public Map<String,String> selectCount(User user);
 }

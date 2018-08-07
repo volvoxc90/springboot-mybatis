@@ -64,6 +64,15 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "user/getUserByName", method = RequestMethod.GET)
+    public WebResult<User> getUserByName(User user) {
+        WebResult result = new WebResult();
+        result.setCode("success");
+        List<User> userList = userService.getUserByName(user);
+        result.setData(userList);
+        return result;
+    }
+
     /**
      * 登录
      *
@@ -86,8 +95,8 @@ public class UserController {
             return new WebResult("failed", "登录失败，用户名或者密码错误");
         }
 
-        User user2 = userService.getUserByName(user.getUserName());
-        request.getSession().setAttribute("user", user2);
+//        User user2 = userService.getUserByName(user.getUserName());
+//        request.getSession().setAttribute("user", user2);
 
         Map<String, Object> map = new HashMap<>();
         List<StatusVO> equipInfoCount = equipService.queryAllStatus();
@@ -204,6 +213,13 @@ public class UserController {
             return new WebResult("error", e.getClass().getName());
         }
     }
+
+    @RequestMapping(value = "user/selectCount")
+    public WebResult selectCount(User user) {
+        Map<String, String >map = userService.selectCount(user);
+        return new WebResult("success", map);
+    }
+
 
 
 }

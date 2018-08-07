@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Override
-    public User getUserByName(String userName) {
-        return userMapper.getUserByName(userName);
+    public List<User> getUserByName(User user) {
+        return userMapper.getUserByName(user);
     }
 
     @Override
@@ -62,6 +63,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updatePwd(String password, Integer id) {
         return userMapper.updatePwd(password, id);
+    }
+
+    @Override
+    public Map<String, String> selectCount(User user) {
+        return userMapper.searchCount(user);
     }
 
 

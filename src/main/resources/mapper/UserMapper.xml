@@ -19,11 +19,11 @@
     </sql>
 
 
-    <select id="getUserByName" parameterType="String" resultMap="user">
+    <select id="getUserByName" parameterType="user" resultMap="user">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_user
-        WHERE user_name = #{userName}
+        WHERE user_name = #{user.userName}
     </select>
 
     <select id="getUser" parameterType="java.lang.String" resultMap="user">
@@ -83,4 +83,9 @@
         SET password = #{password}
         WHERE id = #{id}
     </update>
+
+    <select id="searchCount">
+        select <include refid="Base_Column_List"/>
+        FROM tb_user
+    </select>
 </mapper>

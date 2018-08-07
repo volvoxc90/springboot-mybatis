@@ -8,11 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper extends MyMapper {
 
-    public User getUserByName(@Param("userName") String userName);
+    public List<User> getUserByName(@Param("user") User user);
 
     public User getUser(@Param("userName")String userName, @Param("password")String password);
 
@@ -27,5 +28,7 @@ public interface UserMapper extends MyMapper {
     public boolean deleteById(Integer id);
 
     public boolean updatePwd(@Param("password") String password, @Param("id") Integer id);
+
+    public Map<String, String>searchCount(User user);
 
 }
