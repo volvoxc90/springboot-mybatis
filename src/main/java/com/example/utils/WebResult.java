@@ -24,6 +24,7 @@ public class WebResult<T> implements Serializable {
 //    private Object info;//其他信息
 
     public WebResult() {
+
     }
 
     public WebResult(String code, T data) {

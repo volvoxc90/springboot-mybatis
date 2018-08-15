@@ -7,7 +7,7 @@
     </appender>
 
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>d:/logs/springboot-mybatis.log</file>
+       <!-- <file>d:/logs/springboot-mybatis.log</file>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>d:/logs/springboot-mybatis.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
