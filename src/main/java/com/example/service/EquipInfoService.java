@@ -23,4 +23,6 @@ public interface EquipInfoService {
     public EquipInfoVO queryById(Integer id);
 
     public List<StatusVO> queryAllStatus();
+
+    public List<EquipInfoVO> queryEquipInfoByUser(EquipInfoVO equipInfoVO);
 }

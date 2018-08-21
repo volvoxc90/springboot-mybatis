@@ -101,7 +101,7 @@ public class EquipInfoController {
     public WebResult<EquipInfoVO> save(EquipInfoVO equipInfoVO) {
         try {
             if(StringUtils.isNotBlank(equipInfoVO.getFileData())) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HHmmss");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HHmmss");
                 String imgName = sdf.format(new java.util.Date());
                 String fileData = this.setImgPath(equipInfoVO.getFileData()) + imgName +  ".jpg";
                 if(StringUtils.isBlank(fileData)) return new WebResult("failed", "上传文件路径不对");
@@ -218,6 +218,14 @@ public class EquipInfoController {
 
         return new WebResult("success", map);
     }
+
+    @RequestMapping(value = "/equip/queryEquipInfoByUser", method = RequestMethod.GET)
+    public WebResult queryEquipInfoByUser(EquipInfoVO equipInfoVO) {
+        List<EquipInfoVO> list = equipService.queryEquipInfoByUser(equipInfoVO);
+        return new WebResult("success", list);
+    }
+
+
 
     public java.lang.String getImgFilePath() {
         return imgFilePath;

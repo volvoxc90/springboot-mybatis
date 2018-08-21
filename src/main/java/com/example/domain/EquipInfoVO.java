@@ -7,6 +7,7 @@ public class EquipInfoVO extends BaseEntity implements Serializable {
     //设备id
     private Integer id;
     //设备名称
+    private String name;
     private String equipName;
     //类型名称 常用类、普通类、闲杂类
     private String typeName;
@@ -40,6 +41,25 @@ public class EquipInfoVO extends BaseEntity implements Serializable {
     private String createTime;
     private String updateTime;
 
+    private User user;
+
+    private Type type;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
@@ -62,6 +82,14 @@ public class EquipInfoVO extends BaseEntity implements Serializable {
                 ", endTime='" + endTime + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

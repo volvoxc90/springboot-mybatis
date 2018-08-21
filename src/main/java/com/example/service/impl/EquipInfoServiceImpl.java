@@ -59,4 +59,8 @@ public class EquipInfoServiceImpl implements EquipInfoService {
         return equipInfoMapper.queryAllStatus();
     }
 
+    @Override
+    public List<EquipInfoVO> queryEquipInfoByUser(EquipInfoVO equipInfoVO) {
+        return equipInfoMapper.queryEquipInfoByUser(equipInfoVO);
+    }
 }

@@ -31,4 +31,6 @@ public interface EquipInfoMapper extends MyMapper {
     public Integer queryAllStatus2();
     public Integer queryAllStatus3();
     public Integer queryAllStatus4();
+
+   public List<EquipInfoVO> queryEquipInfoByUser(@Param("equipInfoVO")EquipInfoVO equipInfoVO);
 }

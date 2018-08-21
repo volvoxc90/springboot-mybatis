@@ -125,4 +125,48 @@
             status AS status
           FROM t_equip_info WHERE id=#{id}
     </select>
+
+    <!-- 方式一 -->
+    <resultMap id="equipInfoUserMap" type="com.example.domain.EquipInfoVO">
+        <id  column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type_no" property="typeNo"/>
+        <result column="factory_time" property="factoryTime"/>
+        <result column="file_data" property="fileData"/>
+        <result column="type_id" property="typeId"/>
+        <result column="brand" property="brand"/>
+        <result column="factory" property="factory"/>
+        <result column="buy_time" property="buyTime"/>
+        <result column="crate_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+
+        <association property="user" javaType="com.example.domain.User">
+            <id column="id" property="id"/>
+            <result column="user_name" property="name"/>
+        </association>
+
+        <association property="type" javaType="com.example.domain.Type">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <!-- 方式二 -->
+
+    <resultMap id="equipInfoUserMap2" type="com.example.domain.EquipInfoVO">
+
+
+    </resultMap>
+
+    <select id="queryEquipInfoByUser" parameterType="com.example.domain.EquipInfoVO" resultMap="equipInfoUserMap">
+
+      SELECT t.*, t2.user_name AS userName, t3.name
+      FROM t_equip_info t, tb_user t2, t_type t3
+      WHERE t.user_id = t2.id
+      AND t.type_id = t3.id
+
+
+    </select>
 </mapper>
